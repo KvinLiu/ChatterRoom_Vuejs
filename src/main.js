@@ -4,10 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import { routes } from './routes'
+import VueResource from 'vue-resource'
 
 
-Vue.use(VueRouter)
-Vue.config.productionTip = false
+Vue.use(VueRouter);
+Vue.use(VueResource);
+
+Vue.config.productionTip = false;
+
+alertify.defaults.notifier.position = 'top-right';
 
 const router = new VueRouter({
   mode: 'history',
@@ -20,4 +25,4 @@ new Vue({
   router,
   template: '<App/>',
   components: { App }
-})
+});
