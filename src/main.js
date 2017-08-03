@@ -10,6 +10,19 @@ import VueResource from 'vue-resource'
 Vue.use(VueRouter);
 Vue.use(VueResource);
 
+Vue.http.interceptors.push((request, next) => {
+  if (request.url[0] === '/') {
+    request.url = process.env.API + request.url;
+  }
+  next((res) => {
+    if (res.status === 422) {
+      res.body.errors.forEach((e) => {
+        alertify.error(e);
+      })
+    }
+  })
+})
+
 Vue.config.productionTip = false;
 
 alertify.defaults.notifier.position = 'top-right';
