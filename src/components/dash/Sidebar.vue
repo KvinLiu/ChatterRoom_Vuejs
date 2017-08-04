@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar" class="text-center">
-    <h4 class="text-center">Username</h4>
+    <h4 class="text-center">@{{ user.username }}</h4>
     <hr>
     <div class="row">
       <div class="col-sm-6">
@@ -11,8 +11,14 @@
       </div>
     </div>
     <div class="beepNowWrap m-t-20 m-b-20">
-      <textarea rows="10" class="form-control" maxlength="320" placeholder="Start writing your beep here!"></textarea>
-      <p class="text-muted">320 characters remaining</p>
+      <textarea
+        rows="10"
+        class="form-control"
+        maxlength="320"
+        placeholder="Start writing your beep here!"
+        v-model="newBeep"
+      ></textarea>
+      <p class="text-muted">{{320 - newBeep.length}} character{{320 - newBeep.length === 1 ? '' : 's' }} remaining</p>
       <p class="text-center no-margin"><button class="btn btn-primary">Beep Now!</button></p>
     </div>
     <div class="row">
@@ -23,7 +29,7 @@
       </div>
       <div class="col-sm-6">
         <p class="text-center no-margin">
-          <a href="#"><i class="fa fa-power-off"></i> Logout</a>
+          <a href="#" @click.prevent="logout"><i class="fa fa-power-off"></i> Logout</a>
         </p>
       </div>
     </div>
@@ -32,7 +38,30 @@
 
 <script>
   export default {
-    name: 'sidebar'
+    name: 'sidebar',
+    data () {
+      return {
+        user: {},
+        newBeep: ''
+      }
+    },
+    methods: {
+      logout () {
+        this.$auth.destroyToken();
+        this.user = {};
+        this.$router.push('/auth/login');
+      },
+
+      getUser () {
+        this.$http.get('/users/me')
+          .then((res) => {
+            this.user = res.body
+          })
+      }
+    },
+    created () {
+      this.getUser()
+    }
   }
 </script>
 
