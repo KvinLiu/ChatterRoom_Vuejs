@@ -18,6 +18,11 @@ Vue.use(Auth);
 Vue.http.interceptors.push((request, next) => {
   if (request.url[0] === '/') {
     request.url = process.env.API + request.url;
+
+    const token = Vue.auth.getToken();
+    if (token) {
+      request.headers.set('Authorization', `Bearer ${token}`);
+    }
   }
   next((res) => {
     if (res.status === 422) {
