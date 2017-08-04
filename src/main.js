@@ -43,6 +43,11 @@ router.beforeEach((to, from , next) => {
   // prevent access to 'requiresGuest' routes
   if (to.matched.some((record) => record.meta.requiresGuest ) && Vue.auth.loggedIn()) {
     next({ path: '/newsfeed' });
+  } else if (to.matched.some((record) => record.meta.requiresAuth ) && !Vue.auth.loggedIn()) {
+    next({
+      path: '/auth/login',
+      query: { redirect: to.fullPath }
+    });
   } else {
     next(); // make sure always call next()
   }

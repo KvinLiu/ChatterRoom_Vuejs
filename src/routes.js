@@ -12,7 +12,8 @@ export const routes = [
     children: [
       {
         path: '/newsfeed',
-        component: Newsfeed
+        component: Newsfeed,
+        meta: { requiresAuth: true }
       }
     ]
   },
