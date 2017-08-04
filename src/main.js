@@ -5,11 +5,16 @@ import App from './App'
 import VueRouter from 'vue-router'
 import { routes } from './routes'
 import VueResource from 'vue-resource'
+import Auth from './plugins/Auth'
 
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
+Vue.use(Auth);
 
+
+
+// configure vue-router interceptors
 Vue.http.interceptors.push((request, next) => {
   if (request.url[0] === '/') {
     request.url = process.env.API + request.url;
@@ -21,16 +26,27 @@ Vue.http.interceptors.push((request, next) => {
       })
     }
   })
-})
-
-Vue.config.productionTip = false;
-
-alertify.defaults.notifier.position = 'top-right';
+});
 
 const router = new VueRouter({
   mode: 'history',
   routes
 });
+
+// configure vue-router guards
+router.beforeEach((to, from , next) => {
+  // prevent access to 'requiresGuest' routes
+  if (to.matched.some((record) => record.meta.requiresGuest ) && Vue.auth.loggedIn()) {
+    next({ path: '/newsfeed' });
+  } else {
+    next(); // make sure always call next()
+  }
+});
+
+Vue.config.productionTip = false;
+
+// configure alertify defaults
+alertify.defaults.notifier.position = 'top-right';
 
 /* eslint-disable no-new */
 new Vue({

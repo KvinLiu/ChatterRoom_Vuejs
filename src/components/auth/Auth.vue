@@ -21,9 +21,11 @@
 
 <style scoped="true">
   #auth {
+    position: absolute;
     display: flex;
     height: 100%;
-    margin-top: 25vh;
+    width: 100%;
+    align-items: center;
   }
   .authForm {
     background: #fff;
