@@ -4,6 +4,7 @@ import Register from './components/auth/Register.vue';
 import Dash from './components/dash/Dash.vue';
 import Newsfeed from './components/dash/Newsfeed.vue';
 import Profile from './components/dash/Profile.vue';
+import Settings from './components/dash/Settings.vue';
 
 export const routes = [
   {
@@ -19,6 +20,11 @@ export const routes = [
       {
         path: '/profile/:username',
         component: Profile
+      },
+      {
+        path: '/Settings',
+        component: Settings,
+        meta: { requiresAuth: true}
       }
     ]
   },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="beepsWraper">
-      <beep v-for="beep in beeps" :beep="beep" :showUserInfo="showUserInfo"></beep>
+      <beep v-for="beep in beeps" :beep="beep" :key="beep.id" :showUserInfo="showUserInfo"></beep>
       <div v-if="beepsLoading" id="beepsLoading" class="text-center">
         <i class="fa fa-spin fa-spinner"></i>
       </div>
