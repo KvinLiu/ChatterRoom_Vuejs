@@ -39,13 +39,18 @@
           .catch(() => {
             this.beepsLoading = false;
           });
-
       },
       handleScroll() {
         if (document.body.scrollHeight - window.innerHeight - document.body.scrollTop === 0) {
           if (this.page.current < this.page.last)
             this.getBeeps(this.page.current + 1);
         }
+      }
+    },
+    watch: {
+      endpoint () {
+        this.beeps = [];
+        this.getBeeps();
       }
     },
     created () {

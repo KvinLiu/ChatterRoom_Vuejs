@@ -5,7 +5,7 @@
       <h2 class="text-center">@{{user.username}}</h2>
       <hr>
       <p class="text-center m-b-20">{{user.about}}</p>
-      <beep-list :endpoint="endpoint" :showUserInfo="false"></beep-list>
+      <beep-list :endpoint="`/users/${this.$route.params.username}/beeps`" :showUserInfo="false"></beep-list>
     </div>
   </div>
 </template>
@@ -17,8 +17,7 @@
     name: 'profile',
     data () {
       return {
-        user: {},
-        endpoint: `/users/${this.$route.params.username}/beeps`
+        user: {}
       }
     },
     methods: {
@@ -34,6 +33,10 @@
     },
     created () {
       this.getUser();
+    },
+    watch: {
+      // call again the method if the route changes
+      $route: 'getUser'
     }
   }
 </script>

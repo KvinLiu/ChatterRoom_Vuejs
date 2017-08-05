@@ -3,6 +3,7 @@ import Login from './components/auth/Login.vue';
 import Register from './components/auth/Register.vue';
 import Dash from './components/dash/Dash.vue';
 import Newsfeed from './components/dash/Newsfeed.vue';
+import Profile from './components/dash/Profile.vue';
 
 export const routes = [
   {
@@ -14,6 +15,10 @@ export const routes = [
         path: '/newsfeed',
         component: Newsfeed,
         meta: { requiresAuth: true }
+      },
+      {
+        path: '/profile/:username',
+        component: Profile
       }
     ]
   },
