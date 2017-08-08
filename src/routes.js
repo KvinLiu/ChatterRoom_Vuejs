@@ -22,7 +22,7 @@ export const routes = [
         component: Profile
       },
       {
-        path: '/Settings',
+        path: '/settings',
         component: Settings,
         meta: { requiresAuth: true}
       }

@@ -25,7 +25,7 @@
       <div class="row">
         <div class="col-sm-6">
           <p class="text-center no-margin">
-            <a href="#"><i class="fa fa-cog"></i> Settings</a>
+            <router-link to="/settings"><i class="fa fa-cog"></i> Settings</router-link>
           </p>
         </div>
         <div class="col-sm-6">
@@ -51,9 +51,13 @@
     name: 'sidebar',
     data () {
       return {
-        user: {},
         newBeep: '',
         loggedIn: this.$auth.loggedIn()
+      }
+    },
+    computed: {
+      user () {
+        return this.$store.state.currentUser
       }
     },
     methods: {
@@ -61,18 +65,7 @@
         this.$auth.destroyToken();
         this.user = {};
         this.$router.push('/auth/login');
-      },
-
-      getUser () {
-        this.$http.get('/users/me')
-          .then((res) => {
-            this.user = res.body
-          })
       }
-    },
-    created () {
-      if (this.loggedIn)
-        this.getUser()
     }
   }
 </script>

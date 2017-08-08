@@ -5,6 +5,7 @@ import App from './App'
 import VueRouter from 'vue-router'
 import { routes } from './routes'
 import VueResource from 'vue-resource'
+import store from './store'
 import Auth from './plugins/Auth'
 
 
@@ -62,6 +63,7 @@ alertify.defaults.notifier.position = 'top-right';
 new Vue({
   el: '#app',
   router,
+  store,
   template: '<App/>',
   components: { App }
 });
